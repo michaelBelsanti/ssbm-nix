@@ -1,0 +1,17 @@
+name: "Update packages"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *" # https://crontab.guru/#0_10_*_*_0
+jobs:
+  updateFlakePackages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: cachix/install-nix-action@v20
+      - name: Update flake packages
+        uses: michaelBelsanti/nix-update-action@v0.1.0
+        with:
+          packages: "slippi-netplay"
