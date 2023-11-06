@@ -70,14 +70,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "3.3.0";
+  version = "3.3.1";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
     rev = "v${version}";
-    hash = "sha256-mLkIRuyERmH5VF3UVU1VjM9wJYZhPhb6oIvZy7FhL0s=";
+    hash = "sha256-06hS770zo/4XnvKc9Mtxn+cAvAF6fNXR+SRzKFNoh1Y=";
     fetchSubmodules = true;
   };
 
@@ -85,6 +85,9 @@ stdenv.mkDerivation rec {
 
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = "${src}/${cargoRoot}/Cargo.lock";
+    outputHashes = {
+      "cpal-0.15.2" = "sha256-4C7YWUx6SZnZy6pwy0CCL3yPgaMflN1atN3cUNMbcmU=";
+    };
   };
 
   outputs = [ "out" ];
